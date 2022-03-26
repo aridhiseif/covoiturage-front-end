@@ -1,0 +1,9 @@
+.HeaderContainer {
+  background: rgb(76, 187, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(76, 187, 0, 1) 8%,
+    rgba(61, 180, 37, 1) 37%
+  );
+  height: 45px;
+}
