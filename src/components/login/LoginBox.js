@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import validator from "validator";
+import { useHistory } from "react-router-dom";
+import LoadingAnim from "./LoadingAnim";
 import "./Login.css";
 
 function LoginBox() {
@@ -10,7 +12,11 @@ function LoginBox() {
   const [Lemail, setLEmail] = useState("");
   const [role, setRole] = useState("client");
   const [password, setPassword] = useState("");
+  const [Lpassword, setLPassword] = useState("");
   const [redLine, setRedLine] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const history = useHistory();
 
   const IsValidEmail = () => {
     if (validator.isEmail(email) || email == "") {
@@ -27,9 +33,41 @@ function LoginBox() {
       return "WrongInput";
     }
   };
+  const Login = async (credentials) => {
+    return fetch("http://localhost:8001/api/login_check", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then((res) => res.json())
+      .then((data) => data);
+  };
+
+  const LoginBtn = async (e) => {
+    setIsLoading(true);
+    let body = {
+      email: Lemail,
+      password: Lpassword,
+    };
+    console.log(body);
+    const token = await Login(body);
+    if (token.token) {
+      localStorage.setItem("token", token.token);
+      console.log("token saved to localStorage");
+      history.push("/home");
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+
+    await console.log(token);
+  };
 
   const addUser = async (credentials) => {
-    return fetch("http://localhost:8001/api/users", {
+    return fetch("http://localhost:8001/register", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -45,13 +83,16 @@ function LoginBox() {
       nom: nom,
       prenom: prenom,
       email: email,
-      roles: role,
+
       password: password,
       isActive: false,
     };
     console.log(body);
     const user = await addUser(body);
     console.log(user);
+    if (user.status == "ok") {
+      history.push("/signin_is_succesfull");
+    }
   };
 
   return (
@@ -67,7 +108,12 @@ function LoginBox() {
             onChange={(e) => setLEmail(e.target.value)}
           />
           Password:
-          <input type="password" className="Input" />
+          <input
+            type="password"
+            className="Input"
+            value={Lpassword}
+            onChange={(e) => setLPassword(e.target.value)}
+          />
           <div
             style={{
               display: "flex",
@@ -76,7 +122,17 @@ function LoginBox() {
               justifyContent: "center",
             }}
           >
-            <button className="btnSave">Login</button>
+            {/*-------------------------------LOGIN button -------------------------------- */}
+            {!isLoading ? (
+              <button className="btnSave" onClick={() => LoginBtn()}>
+                Login
+              </button>
+            ) : (
+              <LoadingAnim />
+            )}
+            {/*##############LOGIN button ############### */}
+
+            {/*-------------------------------Sign Link -------------------------------- */}
             <div
               style={{ display: "flex", flexDirection: "row", marginTop: 10 }}
             >
@@ -87,6 +143,7 @@ function LoginBox() {
                 Sign In
               </button>
             </div>
+            {/*############## Sign Link ############### */}
             <div
               style={{ display: "flex", flexDirection: "row", marginTop: 10 }}
             >

@@ -1,0 +1,44 @@
+.SuccPageContainer {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.cardContainer {
+  border: 1px solid black;
+  padding: 20px;
+  margin-top: 20px;
+  height: 200px;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.border-gradient {
+  border: 10px solid;
+  border-image-slice: 1;
+  border-width: 5px;
+}
+
+.border-gradient-green {
+  border-image-source: linear-gradient(to left, #00c853, #b2ff59);
+}
+
+.SuccessBtn {
+  margin-top: 50px;
+  background: none;
+  border: 0;
+  border: 2px solid #00c853;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.SuccessBtn:hover {
+  transition: 0.2s;
+  background: #00c853;
+  color: white;
+}
+
+.SuccessBtn:active {
+  background: green;
+}

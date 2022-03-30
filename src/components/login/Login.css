@@ -59,7 +59,16 @@
 
 .btnSave {
   background: none;
+  color: inherit;
   border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   border: 2px solid rgb(9, 121, 22);
   color: rgb(9, 121, 22);
   border-radius: 10px;
@@ -104,4 +113,98 @@
 .SelectStyle:hover {
   border: 3px solid rgb(9, 121, 22);
   transition: 0.1s;
+}
+
+.LoadingContainer {
+  margin: 0;
+  padding: 0;
+  margin-top: 15px;
+  display: flex;
+  flex: 1;
+  width: 150px;
+  border: 2px solid rgb(9, 121, 22);
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #cfffd0, #3fff46);
+  border-radius: 10px;
+}
+
+.Square {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  animation: rotate 4s linear infinite;
+  border: 1px dashed rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.Square span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.Square span::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-top: 2px solid white;
+  animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    left: -100%;
+  }
+  25% {
+    left: 0;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+.Square span:nth-child(1) {
+  transform: rotate(0deg);
+}
+.Square span:nth-child(2) {
+  transform: rotate(90deg);
+}
+.Square span:nth-child(3) {
+  transform: rotate(180deg);
+}
+.Square span:nth-child(4) {
+  transform: rotate(270deg);
+}
+
+.Square span:nth-child(1)::before {
+  animation-delay: 0s;
+}
+.Square span:nth-child(2)::before {
+  animation-delay: 0.5s;
+}
+.Square span:nth-child(3)::before {
+  animation-delay: 1s;
+}
+.Square span:nth-child(4)::before {
+  animation-delay: 1.5s;
 }

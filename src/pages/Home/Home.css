@@ -1,0 +1,41 @@
+.HomeContainer {
+  display: flex;
+  flex: 1;
+}
+
+.SideBar {
+  width: 75px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  background: rgb(76, 187, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(76, 187, 0, 1) 8%,
+    rgba(61, 180, 37, 1) 37%
+  );
+}
+
+.SideBar.open {
+}
+
+.ListBtn {
+  background: none;
+  border: 0;
+  color: white;
+}
+
+.menu-icon {
+  width: 50px;
+  height: 50px;
+  fill: white;
+  cursor: pointer;
+}
+
+.menu-icon:hover {
+  transition: 0.2s;
+  fill: #c4c4c4;
+}
